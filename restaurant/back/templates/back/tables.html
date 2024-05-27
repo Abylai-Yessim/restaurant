@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'back/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'back/css/tables.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header-bron container">
+        <div class="all-header-bron">
+            <div class="logo3">
+                <a href="{% url 'back:home' %}"><img src="{% static 'back/images/logo.png' %}" alt=""></a>
+            </div>
+            <div class="about">
+                г.Алматы <br> Проспект Абая 123
+            </div>
+            <div class="time">
+                ПН-ЧТ 11:00 - 1:00
+                <br>
+                ПТ-ВС 11:00 - 2:00
+            </div>
+            <div class="phone">
+                +7(777)-777-0777
+            </div>
+            <div class="auth-buttons">
+                {% if not request.user.is_authenticated %}
+                    <a href="{%  url 'authe:signin' %}" class="auth-button">Вход</a>
+                    <a href="{%  url 'authe:signup' %}" class="auth-button">Регистрация</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+            <div class="logout">
+                <a class="logout-btn" href="{% url 'authe:signout' %}">Выйти</a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </header>
+    {% for times_list in times_lists %}
+    <div class="booking-section">
+        {% for time in times_list %}
+            {% if time %}
+                <div class="time-booking">
+                    {{ time }}
+                </div>
+                <div class="book-button">
+                    <a href="{% url 'back:booking' table_number=forloop.counter time=time %}" class="book-btn">Забронировать</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}
+
+
+<script src="{% static 'back/js/booking.js' %}"></script>
+
+</body>
+</html>

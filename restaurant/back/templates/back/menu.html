@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'back/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'back/css/menu.css' %}">
+    <title>Document</title>
+</head>
+<body id="top">
+    <header class="header-bron container">
+        <div class="all-header-bron">
+            <div class="logo3">
+                <a href="{% url 'back:home' %}"><img src="{% static 'back/images/logo.png' %}" alt=""></a>
+            </div>
+            <div class="about">
+                г.Алматы <br> Проспект Абая 123
+            </div>
+            <div class="time">
+                ПН-ЧТ 11:00 - 1:00
+                <br>
+                ПТ-ВС 11:00 - 2:00
+            </div>
+            <div class="phone">
+                +7(777)-777-0777
+            </div>
+            <div class="auth-buttons">
+                {% if not request.user.is_authenticated %}
+                    <a href="{%  url 'authe:signin' %}" class="auth-button">Вход</a>
+                    <a href="{%  url 'authe:signup' %}" class="auth-button">Регистрация</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+            <div class="logout">
+                <a class="logout-btn" href="{% url 'authe:signout' %}">Выйти</a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </header>
+    <div id="overlay"></div>
+    <section class="menu">
+        <div class="categories">
+            {% for category in categories %}
+            <button class="category-btn" data-category-id="{{ category.id }}">{{ category.name }}</button>
+
+            {% endfor %}
+        </div>
+        
+        
+        <div class="menu-items">
+            {% for category, items in categorized_menu.items %}
+            <div class="menu-category" id="category-{{ category.id }}">
+                <h2>{{ category.name }}</h2>
+                <div class="menu-items-list">
+                    {% for item in items %}
+                    <div class="menu-item">
+                        <h3>{{ item.name }}</h3>
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                        <p class="description">{{ item.description }}</p>
+                        <span class="price">Цена: {{ item.price }} тг</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+
+    
+    <script src="{% static 'back/js/menu.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'back/css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header-bron container">
+        <div class="all-header-bron">
+            <div class="logo3">
+                <a href="{% url 'back:home' %}"><img src="{% static 'back/images/logo.png' %}" alt=""></a>
+            </div>
+            <div class="about">
+                г.Алматы <br> Проспект Абая 123
+            </div>
+            <div class="time">
+                ПН-ЧТ 11:00 - 1:00
+                <br>
+                ПТ-ВС 11:00 - 2:00
+            </div>
+            <div class="phone">
+                +7(777)-777-0777
+            </div>
+            <div class="auth-buttons">
+                {% if not request.user.is_authenticated %}
+                    <a href="{%  url 'authe:signin' %}" class="auth-button">Вход</a>
+                    <a href="{%  url 'authe:signup' %}" class="auth-button">Регистрация</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+            <div class="logout">
+                <a class="logout-btn" href="{% url 'authe:signout' %}">Выйти</a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </header>
+    <h1>Бронирование столика №{{ table_number }}</h1>
+<p>Выбранное время: {{ time }}</p> 
+
+<!-- {% if is_booked_by_other %}
+    <div class="alert alert-danger" role="alert">
+        Столик №{{ table_number }} на время {{ time }} уже забронирован другим пользователем. Пожалуйста, выберите другой столик или время.
+    </div>
+{% elif is_booked %}
+    <div class="alert alert-danger" role="alert">
+        Вы уже забронировали столик №{{ table_number }} на время {{ time }}. Вы не можете забронировать больше одного столика на это время.
+    </div>
+{% endif %} -->
+
+{% if not is_booked and not is_booked_by_other %}
+    {% if user.is_authenticated %}
+        <form id="booking-form" method="post" action="{% url 'back:book_table' %}">
+            {% csrf_token %}
+            <input type="hidden" name="table_number" value="{{ table_number }}">
+            <input type="hidden" name="time" value="{{ time }}">
+            <label for="tel">Ваш номер:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <button type="submit">Забронировать</button>
+        </form>
+    {% else %}
+        <p>Чтобы забронировать столик, пожалуйста, <a href="{% url 'authe:signup' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+{% endif %}
+
+    
+</form>
+</body> 
+</html>

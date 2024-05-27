@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'back/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'back/css/rev.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header container">
+        <div class="logo3">
+            <a href="{% url 'back:home' %}"><img src="{% static 'back/images/logo.png' %}" alt=""></a>
+        </div>
+        <div class="about">
+            г.Алматы <br> Проспект Абая 123
+        </div>
+        <div class="time">
+            ПН-ЧТ 11:00 - 1:00
+            <br>
+            ПТ-ВС 11:00 - 2:00
+        </div>
+        <div class="phone">
+            +7(777)-777-0777
+        </div>
+        {% if user.is_authenticated %}
+        <div class="logout">
+            <a class="logout-btn" href="{% url 'authe:signout' %}">Выйти</a>
+        </div>
+        {% endif %}
+    </header>    
+    <h1>Отзывы</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                {% if review.name %}
+                    {{ review.name }}
+                {% else %}
+                    {{ review.user.username}} {{ review.user.last_name }}
+                {% endif %}
+                ({{ review.created_at }}): {{ review.text }}
+                {% if user.is_authenticated and review.user == user %}
+                <form method="post" action="{% url 'back:delete_review' review.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Пока нет отзывов.</li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+    <h2>Оставить отзыв</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить отзыв</button>
+    </form>
+    {% else %}
+    <p>Чтобы оставить отзыв, пожалуйста, <a href="{% url 'authe:signin' %}">войдите</a> в систему или же <a href="{% url 'authe:signup' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+</body>
+</html>
+

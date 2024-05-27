@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'back/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'back/css/booking.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header-bron container">
+        <div class="all-header-bron">
+            <div class="logo3">
+                <a href="{% url 'back:home' %}"><img src="{% static 'back/images/logo.png' %}" alt=""></a>
+            </div>
+            <div class="about">
+                г.Алматы <br> Проспект Абая 123
+            </div>
+            <div class="time">
+                ПН-ЧТ 11:00 - 1:00
+                <br>
+                ПТ-ВС 11:00 - 2:00
+            </div>
+            <div class="phone">
+                +7(777)-777-0777
+            </div>
+        </div>
+    </header> 
+    <div class="sxema">
+        <div class="sxema-zal">
+            <img src="{% static 'back/images/zal.jpg' %}" alt="#">
+        </div>
+        {% for table in tables %}
+        <div class="numbers-zal{{ table.number }} numbers-zal{% if table.number in is_booked_tables %} reserved{% endif %}">
+            {% if table.number in user_booked_tables %}
+           
+            <form method="post" action="{% url 'back:confirm_delete_booking' booking_id=booking.id %}">
+                {% csrf_token %}
+                <button type="submit"><span>X</span></button>
+            </form>
+            
+            {% elif table.number in is_booked_tables %}
+            <span>X</span>
+            {% else %}
+            <form method="post" action="{% url 'back:table_details' table_number=table.number time=time %}">
+                {% csrf_token %}
+                <input type="hidden" name="phone" value="{{ phone }}">
+                <button type="submit">{{ table.number }}</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+
+    
+<!-- 
+        <div class="numbers-zal2 numbers-zal{% if tables_dict.2.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.2.is_reserved %}href="{% url 'back:table_details' table_number='2' time=time %}"{% endif %}>2</a>
+        </div>
+        <div class="numbers-zal3 numbers-zal{% if tables_dict.3.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.3.is_reserved %}href="{% url 'back:table_details' table_number='3' time=time %}"{% endif %}>3</a>
+        </div>
+        <div class="numbers-zal4 numbers-zal{% if tables_dict.4.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.4.is_reserved %}href="{% url 'back:table_details' table_number='4' time=time %}"{% endif %}>4</a>
+        </div>
+        <div class="numbers-zal5 numbers-zal{% if tables_dict.5.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.5.is_reserved %}href="{% url 'back:table_details' table_number='5' time=time %}"{% endif %}>5</a>
+        </div>
+        <div class="numbers-zal6 numbers-zal{% if tables_dict.6.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.6.is_reserved %}href="{% url 'back:table_details' table_number='6' time=time %}"{% endif %}>6</a>
+        </div>
+        <div class="numbers-zal7 numbers-zal{% if tables_dict.7.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.7.is_reserved %}href="{% url 'back:table_details' table_number='7' time=time %}"{% endif %}>7</a>
+        </div>
+        <div class="numbers-zal8 numbers-zal{% if tables_dict.8.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.8.is_reserved %}href="{% url 'back:table_details' table_number='8' time=time %}"{% endif %}>8</a>
+        </div>
+        <div class="numbers-zal9 numbers-zal{% if tables_dict.9.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.9.is_reserved %}href="{% url 'back:table_details' table_number='9' time=time %}"{% endif %}>9</a>
+        </div>
+        <div class="numbers-zal10 numbers-zal{% if tables_dict.10.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.10.is_reserved %}href="{% url 'back:table_details' table_number='10' time=time %}"{% endif %}>10</a>
+        </div>
+        <div class="numbers-zal11 numbers-zal{% if tables_dict.11.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.11.is_reserved %}href="{% url 'back:table_details' table_number='11' time=time %}"{% endif %}>11</a>
+        </div>
+        <div class="numbers-zal12 numbers-zal{% if tables_dict.12.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.12.is_reserved %}href="{% url 'back:table_details' table_number='12' time=time %}"{% endif %}>12</a>
+        </div>
+        <div class="numbers-zal13 numbers-zal{% if tables_dict.13.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.13.is_reserved %}href="{% url 'back:table_details' table_number='13' time=time %}"{% endif %}>13</a>
+        </div>
+        <div class="numbers-zal14 numbers-zal{% if tables_dict.14.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.14.is_reserved %}href="{% url 'back:table_details' table_number='14' time=time %}"{% endif %}>14</a>
+        </div>
+        <div class="numbers-zal15 numbers-zal{% if tables_dict.15.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.15.is_reserved %}href="{% url 'back:table_details' table_number='15' time=time %}"{% endif %}>15</a>
+        </div>
+        <div class="numbers-zal16 numbers-zal{% if tables_dict.16.is_reserved %} reserved{% endif %}">
+            <a {% if not tables_dict.16.is_reserved %}href="{% url 'back:table_details' table_number='16' time=time %}"{% endif %}>16</a>
+        </div> -->
+         
+    <!-- </div>
+          
+    <div class="sxema">
+        <div class="sxema-zal"><img src="{% static 'back/images/zal.jpg' %}" alt="#"></div>
+        <div class="numbers-zal1 numbers-zal"><a href="{% url 'back:table_details' table_number='1' time=time %}">1</a></div>
+        <div class="numbers-zal2 numbers-zal"><a href="{% url 'back:table_details' table_number='2' time=time %}">2</a></div>
+        <div class="numbers-zal3 numbers-zal"><a href="{% url 'back:table_details' table_number='3' time=time %}">3</a></div>
+        <div class="numbers-zal4 numbers-zal"><a href="{% url 'back:table_details' table_number='4' time=time %}">4</a></div>
+        <div class="numbers-zal5 numbers-zal"><a href="{% url 'back:table_details' table_number='5' time=time %}">5</a></div>
+        <div class="numbers-zal6 numbers-zal"><a href="{% url 'back:table_details' table_number='6' time=time %}">6</a></div>
+        <div class="numbers-zal7 numbers-zal"><a href="{% url 'back:table_details' table_number='7' time=time %}">7</a></div>
+        <div class="numbers-zal8 numbers-zal"><a href="{% url 'back:table_details' table_number='8' time=time %}">8</a></div>
+        <div class="numbers-zal9 numbers-zal"><a href="{% url 'back:table_details' table_number='9' time=time %}">9</a></div>
+        <div class="numbers-zal10 numbers-zal"><a href="{% url 'back:table_details' table_number='10' time=time %}">10</a></div>
+        <div class="numbers-zal11 numbers-zal"><a href="{% url 'back:table_details' table_number='11' time=time %}">11</a></div>
+        <div class="numbers-zal12 numbers-zal"><a href="{% url 'back:table_details' table_number='12' time=time %}">12</a></div>
+        <div class="numbers-zal13 numbers-zal"><a href="{% url 'back:table_details' table_number='13' time=time %}">13</a></div>
+        <div class="numbers-zal14 numbers-zal"><a href="{% url 'back:table_details' table_number='14' time=time %}">14</a></div>
+        <div class="numbers-zal15 numbers-zal"><a href="{% url 'back:table_details' table_number='15' time=time %}">15</a></div>
+        <div class="numbers-zal16 numbers-zal"><a href="{% url 'back:table_details' table_number='16' time=time %}">16</a></div>
+    </div> -->
+
+<script src="{% static 'back/js/booking.js' %}"></script>
+</body> 
+</html>

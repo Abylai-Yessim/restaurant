@@ -1,0 +1,148 @@
+.sxema-zal {
+    position: relative;
+}
+
+.sxema {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.sxema-zal img {
+    width: auto;
+    height: 600px;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.numbers-zal a{
+    text-decoration: none;
+    color: #000;
+    background-color: rgb(234, 234, 247);
+    padding: 5px 10px;
+    box-shadow: 5px 10px 5px rgb(106, 104, 104);
+    font-size: 18px;
+}
+
+.numbers-zal1 {
+    position: absolute;
+    top: 36%;
+    left: 54.9%;
+}
+
+.numbers-zal a:hover {
+    background-color: rgb(111, 3, 212);
+    color: #fff;
+}
+
+.numbers-zal2 {
+    position: absolute;
+    top: 52%;
+    left: 54.9%;
+}
+
+.numbers-zal3 {
+    position: absolute;
+    top: 69%;
+    left: 54.9%;
+}
+
+.numbers-zal4 {
+    position: absolute;
+    top: 69%;
+    left: 31.3%;
+}
+
+.numbers-zal5 {
+    position: absolute;
+    top: 52%;
+    left: 31.3%;
+}
+
+.numbers-zal6 {
+    position: absolute;
+    top: 36%;
+    left: 31.3%;
+}
+
+.numbers-zal7 {
+    position: absolute;
+    top: 67.5%;
+    left: 47.7%;
+}
+
+.numbers-zal8 {
+    position: absolute;
+    top: 67.5%;
+    left: 40%;
+}
+
+.numbers-zal9 {
+    position: absolute;
+    top: 55%;
+    left: 40%;
+}
+
+.numbers-zal10 {
+    position: absolute;
+    top: 51%;
+    left: 47.2%;
+}
+
+.numbers-zal11 {
+    position: absolute;
+    top: 42%;
+    left: 39.61%;
+}
+
+.numbers-zal12 {
+    position: absolute;
+    top: 33.8%;
+    left: 61.91%;
+}
+
+.numbers-zal13 {
+    position: absolute;
+    top: 52.8%;
+    left: 62.1%;
+}
+
+.numbers-zal14 {
+    position: absolute;
+    top: 72.2%;
+    left: 62.1%;
+}
+
+.numbers-zal15 {
+    position: absolute;
+    top: 84.9%;
+    left: 44.9%;
+}
+
+.numbers-zal16 {
+    position: absolute;
+    top: 84.9%;
+    left: 53.9%;
+}
+
+
+/* .reserved {
+    color: purple; 
+    pointer-events: none; 
+} */
+.place.disabled {
+    pointer-events: none; /* Отключение событий указателя для ссылки */
+}
+
+.place.disabled .styles_seat_title_ZV757 {
+    visibility: visible; /* Делаем значок X видимым */
+}
+
+.place.disabled .styles_seat_default_1vm_O {
+    visibility: hidden; /* Скрываем фоновую заливку */
+}
+
+
+

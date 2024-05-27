@@ -1,0 +1,58 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    float: left;
+    font-size: 24px;
+}
+
+.about, .time, .phone {
+    float: right;
+    text-align: right;
+}
+
+.reservation-info {
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.reservation-info h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reservation-info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.reservation-info ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.reservation-info ul li {
+    margin-bottom: 5px;
+}
