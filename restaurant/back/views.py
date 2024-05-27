@@ -110,8 +110,10 @@ def booking(request, table_number, time):
     has_booked = request.session.get('has_booked', False)
     if has_booked and is_booked:
         messages.error(request, 'Вы уже забронировали столик на данное время.')
-        request.session['has_booked'] = False  # Сбросим значение, чтобы избежать бесконечного цикла
+        request.session['has_booked'] = False  
         return redirect('back:booking', table_number=table_number, time=time)
+
+    booking = Booking.objects.filter(table_number=table_number, time=time).first()
 
     context = {
         'tables': tables,
@@ -120,8 +122,9 @@ def booking(request, table_number, time):
         'is_booked': is_booked,
         'is_booked_by_other': is_booked_by_other,
         'is_booked_tables': is_booked_tables,
-        'user_booking': user_booking,  # Добавляем информацию о брони пользователя
-        'user_booked_tables': user_booked_tables,  # Добавляем список столиков, забронированных пользователем
+        'user_booking': user_booking,
+        'user_booked_tables': user_booked_tables,
+        'booking': booking,  
     }
 
     if request.user.is_authenticated:
@@ -129,7 +132,6 @@ def booking(request, table_number, time):
     else:
         messages.error(request, 'Чтобы забронировать столик, пожалуйста, войдите в систему.')
         return redirect('authe:signup')
-
 
 @login_required
 def confirm_delete_booking(request, booking_id):
@@ -143,8 +145,12 @@ def delete_booking(request, booking_id):
     table_number = booking.table_number
     time = booking.time
     booking.delete()
-    messages.success(request, 'Ваша бронь была успешно удалена.')
-    return redirect('back:booking', table_number=table_number, time=time)
+    messages.success(request, 'Бронь успешно удалена.')
+    return redirect('back:success_deleted', table_number=table_number, time=time)
+
+def success_deleted(request, table_number, time):
+    return render(request, 'back/success_deleted.html', {'table_number': table_number, 'time': time})
+
 
 def booking_success(request, table_number, time, phone):
     table_number = int(table_number)

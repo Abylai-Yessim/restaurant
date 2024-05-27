@@ -1,6 +1,7 @@
 <h2>Вы уверены, что хотите удалить бронь на столик {{ booking.table_number }} в {{ booking.time }}?</h2>
 
-<form action="{% url 'back:confirm_delete_booking' booking_id=booking.id %}" method="post">
+<form action="{% url 'back:delete_booking' booking_id=booking.id %}" method="post">
     {% csrf_token %}
     <button type="submit">Удалить бронь</button>
 </form>
+

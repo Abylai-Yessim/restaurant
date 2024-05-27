@@ -16,4 +16,5 @@ urlpatterns = [
     path('table/<int:table_number>/<str:time>/', views.table_details, name='table_details'),
     path('book_table/', views.book_table, name='book_table'),
     path('save_phone_number/', views.save_phone_number, name='save_phone_number'),
+    path('success_deleted/<int:table_number>/<str:time>/', views.success_deleted, name='success_deleted'),
 ]
